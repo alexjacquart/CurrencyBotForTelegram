@@ -1,6 +1,10 @@
 import asyncio
+import nest_asyncio
 from telegram import Update
 from telegram.ext import Application, CommandHandler, CallbackContext
+
+# Применяем фиксацию для Render
+nest_asyncio.apply()
 
 # Токен Telegram-бота
 TOKEN = "8064353519:AAGqu6DXLbldnJLJ6OlkxqWH5d4xYbfycI8"
@@ -43,6 +47,4 @@ async def main():
     await app.run_polling()
 
 if __name__ == "__main__":
-    loop = asyncio.new_event_loop()  # Создаём новый event loop
-    asyncio.set_event_loop(loop)  # Устанавливаем его как текущий
-    loop.run_until_complete(main())  # Запускаем бота без конфликта
+    asyncio.run(main())  # Без конфликта event loop
