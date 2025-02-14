@@ -30,7 +30,7 @@ async def set_rate(update: Update, context: CallbackContext):
     except (IndexError, ValueError):
         await update.message.reply_text("❌ Ошибка! Используй: /setrate <курс>")
 
-# Запуск бота
+# Запуск бота (исправленный)
 async def main():
     app = Application.builder().token(TOKEN).build()
 
@@ -42,6 +42,7 @@ async def main():
     print("🤖 Бот запущен...")
     await app.run_polling()
 
-# Запуск
 if __name__ == "__main__":
-    asyncio.run(main())
+    loop = asyncio.new_event_loop()  # Создаём новый event loop
+    asyncio.set_event_loop(loop)  # Устанавливаем его как текущий
+    loop.run_until_complete(main())  # Запускаем бота без конфликта
